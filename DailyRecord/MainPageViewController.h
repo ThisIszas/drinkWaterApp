@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MainPageViewController.h
 //  DailyRecord
 //
 //  Created by Zheng Li on 2021/7/15.
@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface MainPageViewController : UIViewController
 
 
 @end
