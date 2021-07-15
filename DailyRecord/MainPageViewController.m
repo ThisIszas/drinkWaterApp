@@ -6,7 +6,6 @@
 //
 
 #import "MainPageViewController.h"
-#import <YYKit/YYKit.h>
 #import <Masonry/Masonry.h>
 #import <PINCache/PINCache.h>
 
@@ -46,14 +45,14 @@ static NSDateFormatter *staticDateFormatter = nil;
     self.markDrugEatedButton.layer.borderWidth = 2;
     self.markDrugEatedButton.layer.borderColor = [UIColor whiteColor].CGColor;
     self.markDrugEatedButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
-    [self.markDrugEatedButton setTarget:self action:@selector(markDrugEated) forControlEvents:UIControlEventTouchUpInside];
+    [self.markDrugEatedButton addTarget:self action:@selector(markDrugEated) forControlEvents:UIControlEventTouchUpInside];
     
     self.recordWaterDrinkedButton = [UIButton new];
     [self.recordWaterDrinkedButton setTitle:@"继续喝!" forState:UIControlStateNormal];
     self.recordWaterDrinkedButton.layer.borderWidth = 2;
     self.recordWaterDrinkedButton.layer.borderColor = [UIColor whiteColor].CGColor;
     self.recordWaterDrinkedButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-    [self.recordWaterDrinkedButton setTarget:self action:@selector(updateDrinkedWaterValue) forControlEvents:UIControlEventTouchUpInside];
+    [self.recordWaterDrinkedButton addTarget:self action:@selector(updateDrinkedWaterValue) forControlEvents:UIControlEventTouchUpInside];
     
     self.waterDrinkPerTimeTextField = [UITextField new];
     self.waterDrinkPerTimeTextField.layer.borderWidth = 3;
@@ -62,6 +61,7 @@ static NSDateFormatter *staticDateFormatter = nil;
     self.waterDrinkPerTimeTextField.leftView = paddingView;
     self.waterDrinkPerTimeTextField.leftViewMode = UITextFieldViewModeAlways;
     [self.waterDrinkPerTimeTextField addTarget:self action:@selector(editingValueChange:) forControlEvents:UIControlEventEditingChanged];
+    self.waterDrinkPerTimeTextField.keyboardType = UIKeyboardTypeASCIICapable;
 
     [self.view addSubview:self.isDrugEatedLabel];
     [self.view addSubview:self.dailyDrinkedWaterLiterLabel];
@@ -74,6 +74,9 @@ static NSDateFormatter *staticDateFormatter = nil;
         [self markDrugEated];
     }
     self.waterDrinkPerTimeTextField.text = self.storedConfig[@"drinkPerTime"];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)updateViewConstraints{
@@ -169,6 +172,9 @@ static NSDateFormatter *staticDateFormatter = nil;
     return [staticDateFormatter stringFromDate:[NSDate date]];
 }
 
+- (void)hideKeyboard{
+    [self.view endEditing:YES];
+}
 #pragma mark - 会对storedConfig做修改的的方法
 - (void)updateDrinkedWaterValue{
     int totalDrinked = [self.storedConfig[@"totalDrinked"] intValue];
@@ -202,10 +208,10 @@ static NSDateFormatter *staticDateFormatter = nil;
         self.storeToStorageTimer = nil;
     }
     
-    self.storeToStorageTimer = [NSTimer scheduledTimerWithTimeInterval:2 block:^(NSTimer * _Nonnull timer) {
+    self.storeToStorageTimer = [NSTimer scheduledTimerWithTimeInterval:2 repeats:NO block:^(NSTimer * _Nonnull timer) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [[PINCache sharedCache] setObject:self.storedConfig forKey:dailyCacheKey];
         });
-    } repeats:NO];
+    }];
 }
 @end
