@@ -1,0 +1,39 @@
+PODS:
+  - Masonry (1.1.0)
+  - PINCache (3.0.3):
+    - PINCache/Arc-exception-safe (= 3.0.3)
+    - PINCache/Core (= 3.0.3)
+  - PINCache/Arc-exception-safe (3.0.3):
+    - PINCache/Core
+  - PINCache/Core (3.0.3):
+    - PINOperation (~> 1.2.1)
+  - PINOperation (1.2.1)
+  - ReactiveObjC (3.1.1)
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
+
+DEPENDENCIES:
+  - Masonry (~> 1.1.0)
+  - PINCache
+  - ReactiveObjC
+  - YYKit (~> 1.0.4)
+
+SPEC REPOS:
+  trunk:
+    - Masonry
+    - PINCache
+    - PINOperation
+    - ReactiveObjC
+    - YYKit
+
+SPEC CHECKSUMS:
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
+  PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
+  ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+
+PODFILE CHECKSUM: 4e057cb72a015e5ae9bf29dcdb2bf6545d2aa539
+
+COCOAPODS: 1.10.0
