@@ -8,6 +8,7 @@
 #import "MainPageViewController.h"
 #import <Masonry/Masonry.h>
 #import <PINCache/PINCache.h>
+#import <YYKit/YYKit.h>
 
 #define dailyCacheKey @"dailyRecordConfig"
 
@@ -208,10 +209,10 @@ static NSDateFormatter *staticDateFormatter = nil;
         self.storeToStorageTimer = nil;
     }
     
-    self.storeToStorageTimer = [NSTimer scheduledTimerWithTimeInterval:2 repeats:NO block:^(NSTimer * _Nonnull timer) {
+    self.storeToStorageTimer = [NSTimer timerWithTimeInterval:2 block:^(NSTimer * _Nonnull timer) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [[PINCache sharedCache] setObject:self.storedConfig forKey:dailyCacheKey];
         });
-    }];
+    } repeats:NO];
 }
 @end
