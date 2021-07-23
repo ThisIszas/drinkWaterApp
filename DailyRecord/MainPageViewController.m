@@ -106,8 +106,8 @@ static NSDateFormatter *staticDateFormatter = nil;
     }];
     
     [self.recordWaterDrinkedButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.dailyDrinkedWaterLiterLabel.mas_right).offset(20);
-        make.centerY.mas_equalTo(self.dailyDrinkedWaterLiterLabel);
+        make.top.mas_equalTo(self.dailyDrinkedWaterLiterLabel.mas_bottom).offset(5);
+        make.centerX.mas_equalTo(self.dailyDrinkedWaterLiterLabel);
         make.width.mas_equalTo(80);
     }];
     
@@ -209,7 +209,7 @@ static NSDateFormatter *staticDateFormatter = nil;
         self.storeToStorageTimer = nil;
     }
     
-    self.storeToStorageTimer = [NSTimer timerWithTimeInterval:2 block:^(NSTimer * _Nonnull timer) {
+    self.storeToStorageTimer = [NSTimer scheduledTimerWithTimeInterval:2 block:^(NSTimer * _Nonnull timer) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [[PINCache sharedCache] setObject:self.storedConfig forKey:dailyCacheKey];
         });
